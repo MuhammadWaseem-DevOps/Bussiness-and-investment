@@ -1,0 +1,75 @@
+{% extends 'core/base_dashboard.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block base_title %} {{ request.user }} {% endblock %}
+{% block base_links %}{% endblock %}
+
+{% block content %}
+
+<div class="col-xl-10 col-sm-9">
+    <form action="" method="post">
+        <div class="card">
+            <div class="card-body">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade active show" id="v-pills-payment" role="tabpanel"
+                         aria-labelledby="v-pills-payment-tab">
+                        <div>
+                            <h4 class="card-title">Select Shares</h4>
+                            <p class="card-title-desc">Select Share type</p>
+
+                            <div class="p-4 border">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                               {{ share }}
+                               {{ share_equity }}
+                               {{ share_value }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-sm-6">
+                <a href="{% url 'investor:dashboard' %}"
+                   class="btn text-muted d-none d-sm-inline-block btn-link">
+                    <i class="mdi mdi-arrow-left mr-1"></i> My Applications </a>
+            </div>
+            <div class="col-sm-6">
+                <div class="text-sm-right">
+                    <button type="submit" class="btn btn-success">
+                        <i class="mdi mdi-check mr-1"></i> Buy Share
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+</div>
+</form>
+</div>
+
+{% endblock content %}
+
+{# BASE EXTERNAL SCRIPTS OR LINKS THAT ARE REQUIRED IN PAGE #}
+{% block base_external_scripts %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+$('#id_share').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+    if (valueSelected === 'shared'){
+        $('#div_id_share_equity').hide();
+        $('#div_id_share_value').hide();
+    } else if(valueSelected ==='value') {
+        $('#div_id_share_value').show();
+        $('#div_id_share_equity').hide();
+    } else if(valueSelected ==='equity') {
+        $('#div_id_share_equity').show();
+        $('#div_id_share_value').hide();
+    }
+});
+</script>
+{% endblock %}

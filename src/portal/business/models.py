@@ -64,15 +64,19 @@ class Project(models.Model):
 
 class Shares(models.Model):
     choices = (
-        ('sin', 'Single Owner'),
         ('shared', 'Shared Owner'),
+        ('value', 'Value'),
+        ('equity', 'Equity'),
+
     )
-    equity = models.DecimalField(max_digits=4, decimal_places=2)
-    owner = models.CharField(choices=choices, max_length=20)
-    value = models.IntegerField()
+    share = models.CharField(choices=choices, max_length=20)
+    share_equity = models.IntegerField(null=True, blank=True)
+    share_value = models.IntegerField(null=True, blank=True)
+
 
     def __str__(self):
         return self.id
+
 
 
 class Project_Investor(models.Model):
