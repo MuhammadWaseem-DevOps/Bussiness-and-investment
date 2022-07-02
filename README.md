@@ -1,1 +1,1 @@
-# Bussiness-and-investment
+# bussiness-and-investors

@@ -10,37 +10,76 @@
         <h4>Share Details</h4>
         <hr>
 
-        <div class="table-responsive">
-            <table class="table project-list-table table-nowrap table-centered table-borderless">
-                <tbody>
-
-                {% for object in likes %}
-                    <tr>
-                        <td>
-                            {% if object.profile_image %}
-                                <img src="{{ object.profile_image.url }}" alt="" class="avatar-sm">
-                            {% else %}
-                                <img src="{% static 'core/images/logo_100.png' %}" alt="" class="avatar-sm">
-                            {% endif %}
-                        </td>
-                        <td>
-                            <h5 class="text-truncate font-size-14 mb-0">
-                                <a href="#" class="text-dark">
-                                    {% if object.first_name %}
-                                        {{ object.first_name }} {{ object.last_name }}<br>
-                                    {% else %}
-                                        - <br>
-                                    {% endif %}
-                                    <small>({{ object.username }})</small>
-                                </a>
-                            </h5>
-                        </td>
-                        <td>{{ object.user.email }}</td>
-                    </tr>
-                {% endfor %}
-
-                </tbody>
-            </table>
+ 
+        <div class="row">
+            <div class="col-12">
+        
+                <div class="card">
+                    <div class="card-body">
+                        {% if object_list %}
+        
+                        <div class="table-responsive">
+                            <table class="table table-centered table-nowrap table-hover">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Business Name</th>
+                                    <th scope="col">Project Name</th>
+                                    <th scope="col">Buyed Share</th>
+                                    <th scope="col">Buyed Equity</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for object in object_list %}
+                                <tr>
+                                    <td>
+                                        <p class="mb-0">
+                                            <b><a href="#">{{ object.share.project.business }}</a></b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0">
+                                            <b><a href="#">{{ object.share.project }}</a></b>
+                                        </p>
+                                    </td>
+        
+                                    <td>
+                                        <p class="mb-0">
+                                            <b><a href="#">{{ object.value }}</a>
+                                            </b>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0">
+                                            <b><a href="#">{{ object.percentage_equity }}</a>
+                                            </b>
+                                    </td>
+        
+                                    <td>
+                                        <p class="mb-0">
+                                            <a href="{% url 'investor:view_share' object.pk %}"
+                                               class="btn btn-success btn-sm">view</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+        
+                                </tbody>
+                            </table>
+                        </div>
+        
+                        {% else %}
+                        <p class="text-danger">
+                            <b><i class="fa fa-exclamation-circle"></i> No Project found.</b>
+                        </p>
+                        {% endif %}
+        
+                    </div>
+                </div>
+                <!-- <div class="col-sm-6">
+                    <a href=""
+                       class="btn text-muted d-none d-sm-inline-block btn-link">
+                        <i class="mdi mdi-arrow-left mr-1"></i> Dashboard </a>
+                </div> -->
+            </div>
         </div>
     </div>
 </div>

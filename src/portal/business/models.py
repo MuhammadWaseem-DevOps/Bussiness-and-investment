@@ -29,7 +29,7 @@ class Business(models.Model):
     cro = models.CharField(max_length=200)
     registration_number = models.CharField(max_length=200)
     registration_date = models.DateTimeField(null=True, blank=False)
-    mandatory_filling = models.CharField(choices=filling_status,max_length=20)
+    mandatory_filling = models.CharField(choices=filling_status, max_length=20)
     phone_no = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -57,6 +57,8 @@ class Project(models.Model):
     logo = models.ImageField(upload_to='projects/')
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
     website = models.CharField(max_length=120, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -64,28 +66,28 @@ class Project(models.Model):
 
 class Shares(models.Model):
     choices = (
-        ('shared', 'Shared Owner'),
-        ('value', 'Value'),
-        ('equity', 'Equity'),
-
-    )
-    share = models.CharField(choices=choices, max_length=20)
-    share_equity = models.IntegerField(null=True, blank=True)
-    share_value = models.IntegerField(null=True, blank=True)
-
+        ('equity', 'Equity'),)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    status = models.CharField(choices=choices, max_length=20, default='equity')
+    value = models.PositiveIntegerField(default=0)
+    percentage_equity = models.DecimalField(max_digits=4,decimal_places=2,default=0)
+    sell_equity = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.id
-
+        return self.status
 
 
 class Project_Investor(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     investor = models.ForeignKey(Investor, on_delete=models.CASCADE)
     share = models.ForeignKey(Shares, on_delete=models.CASCADE)
+    value = models.PositiveIntegerField(default=0)
+    percentage_equity = models.DecimalField(max_digits=4,decimal_places=2,default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.project.name}   {self.investor.user.username}'
+        return f'{self.investor.user.username}'
+
 
 
 class Payment(models.Model):

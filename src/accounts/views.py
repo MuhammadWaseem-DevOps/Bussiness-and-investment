@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView
 from django.views.generic.base import View
 
-from src.portal.business.models import Business, Investor
+from src.portal.business.models import Business,Investor
 
 
 @method_decorator(login_required, name='dispatch')
@@ -68,8 +68,6 @@ class BusinessUserConfirm(CreateView):
         user.is_completed = True
         user.save()
         return super(BusinessUserConfirm, self).form_valid(form)
-
-
 
 @method_decorator(login_required, name='dispatch')
 class InvestorUserConfirm(CreateView):
