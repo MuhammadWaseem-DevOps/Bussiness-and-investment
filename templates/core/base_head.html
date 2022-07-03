@@ -99,10 +99,18 @@
                     <span class="d-none d-xl-inline-block ml-1">{{ request.user.username }}</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
+                
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="">
+                    
+                    {% if user.is_investor %}
+                    <a class="dropdown-item" href="{% url 'accounts:investor_update_profile' %}">
                         <i class="bx bx-user font-size-16 align-middle mr-1"></i> Profile
                     </a>
+                    {% elif  request.user.is_business %}
+                    <a class="dropdown-item" href="{% url 'accounts:investor_update_profile' %}">
+                        <i class="bx bx-user font-size-16 align-middle mr-1"></i> Profile
+                    </a>
+                    {% endif %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item d-block text-danger" href="#">
                         {#                        <span class="badge badge-success float-right">11</span>#}

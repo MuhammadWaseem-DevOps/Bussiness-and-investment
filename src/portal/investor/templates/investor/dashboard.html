@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         <div class="card mini-stats-wid">
             <div class="card-body">
                 <div class="media">
@@ -22,7 +22,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         <div class="card mini-stats-wid">
             <div class="card-body">
                 <div class="media">
@@ -39,7 +39,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         <div class="card mini-stats-wid">
             <div class="card-body">
                 <div class="media">
@@ -47,16 +47,16 @@
                         <i class="fa fa-clock h2 text-primary mb-0"></i>
                     </div>
                     <div class="media-body">
-                        <p class="text-muted mb-2">Your Shares</p>
+                        <p class="text-muted mb-2">Profit</p>
                         <h5 class="mb-0">
-                            {{ share_count }}
+                         {{investor_profit}}
                         </h5>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-3">
+    <!-- <div class="col-sm-3">
         <div class="card mini-stats-wid">
             <div class="card-body">
                 <div class="media">
@@ -72,7 +72,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
  
@@ -99,12 +99,12 @@
                         <tr>
                             <td>
                                 <p class="mb-0">
-                                    <b><a href="#">{{ object.share.project.business }}</a></b>
+                                    <b><a href="{% url 'investor:company_detail' object.pk %}">{{ object.share.project.business }}</a></b>
                                 </p>
                             </td>
                             <td>
                                 <p class="mb-0">
-                                    <b><a href="#">{{ object.share.project }}</a></b>
+                                    <b><a href="{% url 'investor:project_detail' object.share.project.pk %}">{{ object.share.project }}</a></b>
                                 </p>
                             </td>
 
